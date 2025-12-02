@@ -1,0 +1,48 @@
+# air.toml
+
+# 项目根目录
+root = "."
+tmp_dir = "tmp"  # 可根据需要更改为其他目录，如 bin, dist
+
+[build]
+  # 构建命令：将项目编译为 ./tmp/xxx.exe
+  cmd = "go build -o ./tmp/xxx.exe ."
+  # 构建后的可执行文件路径（使用 bin 而不是 entrypoint）
+  bin = "./tmp/xxx.exe"
+  # 监视延迟（毫秒）
+  delay = 1000
+  # 排除的目录，避免不必要的文件监视
+  exclude_dir = ["assets", "tmp", "vendor"]  # 移除了 conf，如果需要监视 conf/config.yaml，可以保留或调整
+  # 包含的文件扩展名
+  include_ext = ["go", "tpl", "tmpl", "html", "yaml", "yml"]
+  # 杀死进程前的延迟
+  kill_delay = "500ms"
+  # 构建错误日志文件
+  log = "build-errors.log"
+  # 是否在接收到中断信号时停止
+  send_interrupt = true
+  # 是否在出现错误时停止
+  stop_on_error = true
+
+[color]
+  app = ""
+  build = "yellow"
+  main = "magenta"
+  runner = "green"
+  watcher = "cyan"
+
+[log]
+  time = false
+
+[misc]
+  clean_on_exit = true
+
+[runner]
+  # 设置运行时的环境变量（可选）
+  env = ["APP_ENV=dev", "APP_USER=air"]
+  # 传递给可执行文件的参数
+  args_bin = ["./conf/config.yaml"]
+  # 构建前运行的命令（可选）
+  pre_cmd = []
+  # 构建后运行的命令（可选）
+  post_cmd = []
